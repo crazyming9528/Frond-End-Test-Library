@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    功能描述:用于 移动端 访问页面后 屏蔽用户的返回行为,展示指定的内容,展示完毕后才可返回
+    <div>点击返回需要展示的文章:500, 311, 282, 600</div>
+    <div>展示 id为 <span id="aid"></span>的文章</div>
+</div>
+<script>
+
+    var articleId = [500, 311, 282, 600];//要展示的文章id; 一般是异步 去后台拿
+    var aid_dom = document.getElementById("aid");
+    var aid = queryString('aid') || "1";
+    aid_dom.innerText = aid;
+    banBack();
+
+
+    /**
+     * 查询请求参数
+     * @param name
+     * @returns {string|null}
+     */
+    function queryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        } else {
+            return null;
+        }
+    };
+
+
+    /**
+     * 禁止返回
+     */
+    function banBack() {
+        if (articleId.length === 0) {
+            return;
+        }
+        var count = queryString('count') || 0;
+        var url = window.location.href;
+
+
+        console.log("第" + count + "次");
+        console.log(window.history);
+
+        //如果没有将 数组中的文章展示完毕, 利用pushState插入新的状态,并向前一个状态,以此来抵消用户的返回操作  onpopstate事件
+        if (count < articleId.length) {
+            window.history.pushState('forward', null, '');
+            window.history.forward(1);
+            window.onpopstate = function () {
+                count++;
+                url = url.split("?")[0];
+                window.location.replace(url + "?aid=" + articleId[count - 1] + "&count=" + count);//使用replace 不会往history里边添加记录
+
+            }
+        }
+
+
+    }
+
+
+</script>
+
+</body>
+</html>

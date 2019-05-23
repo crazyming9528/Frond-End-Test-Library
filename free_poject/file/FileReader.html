@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <input id="file" type="file">
+    <input multiple id="file2" type="file">
+    <button onclick="readAsDataURL()">readAsDataUR</button>
+    <button onclick="readAsBinaryString()">readAsBinaryString</button>
+    <button onclick="readAsText()">readAsText</button>
+    <button onclick="multipleFnc()"> multiple</button>
+    <div id="result"></div>
+
+    <img id="img" src="" alt="">
+
+    <script>
+        var result = $id_s('result')
+        var file = $id_s('file');
+        var file2 = $id_s('file2');
+        var img = $id_s('file');
+
+        function $id_s(id) {
+
+            return document.getElementById(id);
+
+        }
+
+
+
+        function multipleFnc() {
+
+        console.log(file2.files);
+
+        }
+
+        function checkFileReader() {
+            //判断浏览器是否支持FileReader接口  
+            if (typeof FileReader == 'undefined') {
+                result.InnerHTML = "<p>你的浏览器不支持FileReader接口！</p>";
+                //使选择控件不可操作  
+                file.setAttribute("disabled", "disabled");
+            }
+
+
+        }
+
+        function checkFile(fileObj, type) {
+        
+            if (fileObj === undefined) {
+                console.log("没有选择文件")
+                return false;
+            } else if (type === "image") {
+                if (!/image\/\w+/.test(fileObj.type)) {
+                    console.log("检测到不是图片")
+                    return false;
+                }
+                return true;
+
+            } else if (type === "text") {
+                if (!/text\/\w+/.test(fileObj.type)) {
+                    console.log("检测到不是文本")
+                    return false;
+                }
+                return true;
+
+            }
+        }
+
+
+        checkFileReader();
+
+
+
+        function readAsDataURL() {
+            var fileObj = file.files[0];
+            console.log(file.files);
+
+
+            if (checkFile(fileObj, 'image')) {
+                var reader = new FileReader();
+                reader.readAsDataURL(fileObj);
+
+                reader.onload = function () {
+                    console.log(this.result);
+                    var img = document.createElement('img');
+                    img.src = this.result;
+                    document.getElementsByTagName('body')[0].appendChild(img);
+
+
+                }
+
+
+            }
+
+
+        }
+
+
+        function readAsBinaryString() {
+            var fileObj = file.files[0];
+            if (checkFile(fileObj, 'image')) {
+
+                var reader = new FileReader();
+                reader.readAsBinaryString(fileObj);
+                reader.onload = function () {
+
+                    console.log(this.result);
+
+                }
+
+
+            }
+
+        }
+
+
+
+        function readAsText() {
+            var fileObj = file.files[0];
+            console.log(fileObj);
+
+            if (checkFile(fileObj, 'text')) {
+
+                var reader = new FileReader();
+                reader.readAsText(fileObj);
+                reader.onload = function () {
+
+                    console.log(this.result);
+                    result.innerHTML = this.result;
+
+                }
+
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<button onclick="window.location.reload()">refresh</button>
+
+<!--<div onclick="test(e, t)">hello promise</div>-->
+
+</body>
+<script>
+
+
+
+    // function e(t) {
+    //     console.log(t)
+    //
+    // }
+    // function t(t) {
+    //     console.log(t)
+    //
+    // }
+
+    function test(resolve,reject) {
+        let timeOut = Math.random() * 2;
+        console.log('set time to:' + timeOut + 'seconds');
+        setTimeout(() => {
+            if (timeOut < 1) {
+                console.log('call resolve()');
+                resolve("200 ok")
+            } else {
+                console.log('call reject()');
+                reject('timeout in ' + timeOut + ' seconds.');
+            }
+
+        }, timeOut * 1000)
+    }
+
+
+    let  p1 =new Promise(test);
+
+    p1.then((res)=>{
+        console.log("成功"+res);
+
+    }).catch((res)=>{
+        console.log("失败"+res);
+
+    });
+    console.log("...");
+
+
+
+    function asyn1() {
+        let p = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                let  num =  Math.ceil(Math.random() * 10);
+                if (num>5){
+                    resolve("大于5")
+
+                }else{
+                    reject("小于5")
+                }
+
+            },2000)
+
+        });
+
+
+        return p;
+
+    }
+
+    function asyn2(data) {
+        let p = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(2);
+            },2000)
+
+        });
+
+
+        return p;
+
+    }
+
+
+    function asyn3(data) {
+        let p = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(3);
+            },2000)
+
+        });
+
+
+        return p;
+
+    }
+
+
+
+    function asyn4(data) {
+        let p = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(4);
+            },2000)
+
+        });
+
+
+        return p;
+
+    }
+
+
+    // asyn1().then((res)=>{
+    //     console.log("成功啦~~"+res)
+    // }).catch((r)=>{
+    //     console.log("失败啦~~"+r)
+    // })
+
+    // 链式调用
+
+    asyn1().then((res)=>{
+        console.log("成功啦~~"+res);
+
+        return asyn2(res)
+    }).then((res)=>{
+
+        console.log("异步操作"+res+"已经完成~")
+        return asyn3(res)
+
+    }).then((res)=>{
+
+        console.log("异步操作"+res+"已经完成~")
+        return asyn4(res)
+
+    }).then((res)=>{
+
+        console.log("异步操作"+res+"已经完成~")
+
+    }).catch((r)=>{
+        console.log(r)
+    })
+</script>
+</html>
