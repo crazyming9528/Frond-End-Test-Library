@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .a_class {
+            color: red;
+        }
+
+        .b_class {
+            color: green;
+        }
+
+        .aa {
+            color: orange;
+        }
+
+        .bb {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="a1">{{hello}}</div>
+<div id="app">
+    <p :class="a">{{hello}} :class里边是字符串</p>
+    <button @click="update">update1</button>
+    <p :class="{'aa':A,'bb':B}">{{hello}} :class里边是对象</p>
+
+    <button @click="update2">update2</button>
+
+    <p :class="['aa','bb','a_class','b_class']">{{hello}} :class里边是数组</p>
+
+    <p :style="{color:st_color}">style1</p>
+    <p :style="st_ob">style2</p>
+</div>
+<script src="../_asset/js/vue.js"></script>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            hello: "hello world",
+            a: "a_class",
+            A: false,
+            B: false,
+            st_color: "red",
+            st_ob: {
+                background: "orange",
+                color: "blue"
+
+            }
+
+        },
+        methods: {
+            update: function () {
+                this.a = "b_class"
+            },
+            update2() {
+                this.A = true;
+                this.B = true
+            }
+        },
+        created() {
+            console.log("创建");
+            console.log(this);
+        },
+        mounted(){
+          console.log("挂载")
+        },
+        updated(){
+            console.log("更新")
+        }
+    })
+</script>
+</body>
+</html>
+

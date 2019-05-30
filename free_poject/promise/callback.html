@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调地狱</title>
+</head>
+<body>
+<script>
+
+    function foo(callback) {
+        setTimeout(function () {
+            console.log('1秒后输出');
+            callback()
+        }, 1000)
+    }
+
+    foo(function () {
+        console.log('第一次输出');
+        foo(function () {
+            console.log('第二次输出');
+            foo(function () {
+                console.log('第三次输出');
+            })
+        })
+    })
+
+</script>
+</body>
+</html>

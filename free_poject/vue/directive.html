@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <p ref="content">crazyming.cn</p>
+    <p v-upper-text="data"></p>
+    <p v-upper-text="data2"></p>
+    <p v-lower-text="data"></p>
+    <p v-lower-text="data2"></p>
+</div>
+
+<script src="../_asset/js/vue.js"></script>
+<script>
+    //全局指令
+    Vue.directive("upper-text", function (el, binding) {
+        console.log(el, binding);
+        el.innerText = binding.value.toUpperCase();
+    });
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                data: "May everything will be fine",
+                data2: "ha Hah  Ha  ha",
+            }
+        },
+        methods: {},
+        directives: {
+            'lower-text': function (el, binding) {
+                //局部 指令
+                console.log(el, binding);
+                el.innerText = binding.value.toLowerCase();
+
+            }
+        }
+
+    })
+</script>
+
+</body>
+</html>
