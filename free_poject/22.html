@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    // 如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。
+
+    test({1: 222, 2: 123, 5: 888});
+
+    /**
+     *
+     * @param ob
+     * @returns {Array}
+     */
+    test({1: 222, 2: 123, 5: 888});
+    function test(ob) {
+        console.time('wdm');
+        var res = [];
+        for (var i = 0; i < 12; i++) {
+            ob[i + 1] ? res.push(ob[i + 1]) : res.push(null);
+        }
+        console.timeEnd('wdm');
+        return res;
+    }
+
+
+    function test2(obj) {
+        console.time('xd');
+        var arr = new Array(12).fill(null);
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                arr.fill(obj[key], key - 1, key)
+            }
+        }
+        console.timeEnd('xd');
+        return arr;
+
+    }
+
+
+</script>
+
+</body>
+</html>

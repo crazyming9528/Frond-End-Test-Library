@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link href="https://cdn.bootcss.com/layer/2.2/skin/layer.css" rel="stylesheet">
+</head>
+<body>
+<div style="width: 100px;height:100px;background-color: red" id="d">
+    111
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.2/layer.js"></script>
+<script>
+
+    var a = document.querySelector('#d');
+    console.log(a)
+    var getWinHtml = '<img width="100%" src="' + dataUrl + '" />';
+    layer.open({
+        title: '',
+        type: 1,
+        shadeClose: true,
+        closeBtn: 0,
+        content: a,
+        style: 'background-color:transparent;'
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    //set
+
+    const s = new Set();
+    const data = [1,1,1,2,3,4,5,6,7,8,9,10,10,11,"hello","hello","good"];
+   data.forEach(v=>s.add(v))
+    console.log(s);
+   console.log(Object.entries(data))
+    for (let a in data) console.log(a);
+
+    console.log("遍历数据源 Set.add()");
+    for (let a of data) {
+        console.log(a);
+        s.add(a)
+    }
+
+    console.log("for of Set.keys()");
+    for (let a of s.keys()) {
+        console.log(a);
+    }
+
+    console.log("for of Set.values()");
+    for (let a of s.values()) {
+        console.log(a);
+    }
+
+
+    let a = ["aa", "bb", "cc"];
+
+
+
+    for (let p in a) console.log(p);
+    for (let v of a) console.log(v);
+
+    //
+    // for each(let v of a) console.log(v);
+</script>
+
+</body>
+</html>
